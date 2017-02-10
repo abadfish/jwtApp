@@ -8,12 +8,23 @@
 
       return {
         storeToken,
+        storeProfile,
         loggedIn,
         currentUser,
+        logout,
       }
 
       function storeToken(token) {
         return $window.localStorage.setItem('token', token);
+      }
+      
+      function storeProfile(profile) {
+        return $window.localStorage.profile = JSON.stringify(profile);
+      }
+
+      function logout() {
+        $window.localStorage.removeItem('token');
+        $windwo.localStorage.removeItem('profile');
       }
 
       function loggedIn() {
@@ -21,14 +32,15 @@
       }
 
       function currentUser() {
-        var token = $window.localStorage.getItem('token')
-        if (token === null || token === '') {
+        var token = $window.localStorage.token
+        var profile = $window.localStorage.profile
+        if (token === null || token === '' || token === undefined) {
           return null
         }
         /*
           TODO: have this decode the token with JWT and return the user info
         */
-        return token;
+        return JSON.parse(profile);
       }
 
     }])

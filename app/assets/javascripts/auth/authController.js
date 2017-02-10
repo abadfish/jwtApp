@@ -29,5 +29,24 @@
           .catch(err => console.log(err))
       }
 
+      $scope.login = function() {
+        var req = {
+          method: 'POST',
+          url: '/api/v1/login',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: { user: $scope.user }
+        }
+
+        return $http(req)
+          .then(response => {
+            Auth.storeToken(response.data.token);
+            Auth.storeProfile(response.data.user);
+          })
+          .then(() => $state.go('home'))
+          .catch(err => console.log(err));
+      }
+
     }]);
 }())
