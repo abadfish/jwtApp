@@ -1,1 +1,4 @@
-<h1>Hi You are home</h1>
+<h1>Hi {{ currentUser.username }}!</h1>
+<p>Your email is {{ currentUser.email }}</p>
+
+<button ng-click="logout()">Logout</button>
